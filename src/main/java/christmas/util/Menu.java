@@ -1,8 +1,8 @@
 package christmas.util;
 
 public enum Menu {
-    양송이_수프("APPETIZER" , 6_000) ,
-    타파즈("APPETIZER" , 8_000),
+    양송이수프("APPETIZER" , 6_000) ,
+    타파스("APPETIZER" , 5_500),
     시저샐러드("APPETIZER" , 8_000),
     티본스테이크("MAIN" , 55_000),
     바비큐립("MAIN" , 54_000),

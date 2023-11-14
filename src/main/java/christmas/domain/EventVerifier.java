@@ -61,16 +61,10 @@ public class EventVerifier {
     }
 
     public int totalBenefitPrice() {
-        int total = 0;
+        int total = getDiscountAmount();
 
         if(isGiveawayEvent()) {
             total += 샴페인.getPrice();
-        }
-
-        total += discountJudgeWeekdayOrWeekend() + discountChristmasDay();
-
-        if(isDiscountSpecialDay()) {
-            total += 1_000;
         }
 
         return total;

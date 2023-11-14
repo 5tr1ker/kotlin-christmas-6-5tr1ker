@@ -16,10 +16,16 @@ public class OutputView {
     }
 
     public static void printAmountOfMoney(int money) {
+        String formattedAmount = formatAmount(money);
+
+        System.out.println(formattedAmount.substring(1) + "원");
+    }
+
+    public static String formatAmount(int money) {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.KOREA);
         String formattedAmount = currencyFormatter.format(money);
 
-        System.out.println(formattedAmount.substring(1) + "원");
+        return formattedAmount;
     }
 
     public static void printBeforeSaleTotalPrice(int price) {
@@ -27,9 +33,6 @@ public class OutputView {
 
         printAmountOfMoney(price);
     }
-
-
-
     public static void printMenu(Map<Menu, Integer> orderMenu) {
         System.out.println(ORDER_MENU);
 

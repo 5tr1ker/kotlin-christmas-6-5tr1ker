@@ -14,7 +14,7 @@ public class ChristmasController {
 
         Reservation reservation = judgment.reserveEnrollment();
 
-        judgment.checkEvent();
+        judgment.handleEvent();
     }
 
 }
