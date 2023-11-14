@@ -87,8 +87,6 @@ public class Reservation {
         }
     }
 
-
-
     public int getTotalPrice() {
         int totalPrice = 0;
 

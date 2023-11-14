@@ -1,6 +1,7 @@
 package christmas.view.output;
 
 import christmas.domain.EventVerifier;
+import christmas.domain.Reservation;
 
 import static christmas.util.OutputMessage.*;
 import static christmas.util.OutputMessage.EVENT_BADGE;
@@ -36,7 +37,6 @@ public class EventOutputView {
         if(eventVerifier.isGiveawayEvent()) {
             System.out.println(GIVEAWAY_EVENT);
         }
-
     }
 
     public static void printWeekendEventOrWeekdayEvent(EventVerifier eventVerifier) {
@@ -49,6 +49,21 @@ public class EventOutputView {
 
         System.out.printf("평일 할인: -");
         printAmountOfMoney(eventVerifier.discountJudgeWeekdayOrWeekend());
+    }
+
+    public static void printTotalBenefitPrice(EventVerifier eventVerifier) {
+        int price = eventVerifier.totalBenefitPrice();
+
+        System.out.printf(BENEFIT_PRICE + "\n-");
+        printAmountOfMoney(price);
+    }
+
+    public static void printAfterSalePrice(EventVerifier eventVerifier , Reservation reservation) {
+        int totalPrice = reservation.getTotalPrice();
+        int benefitPrice = eventVerifier.getDiscountAmount();
+
+        System.out.println(AFTER_SALE_TOTAL_PRICE);
+        printAmountOfMoney(totalPrice - benefitPrice);
     }
 
     public static void printEventBadge(String badge) {

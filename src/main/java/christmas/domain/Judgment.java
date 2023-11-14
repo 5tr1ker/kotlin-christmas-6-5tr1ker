@@ -27,6 +27,8 @@ public class Judgment {
 
         printGiveawayEvent(eventVerifier.isGiveawayEvent());
         printBenefitDetail(eventVerifier);
+        printTotalBenefitPrice(eventVerifier);
+        printAfterSalePrice(eventVerifier , reservation);
         printEventBadge("wad");
     }
 

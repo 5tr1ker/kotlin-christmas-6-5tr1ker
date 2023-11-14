@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import static christmas.util.Menu.샴페인;
+
 public class EventVerifier {
 
     private final Reservation reservation;
@@ -59,7 +61,31 @@ public class EventVerifier {
     }
 
     public int totalBenefitPrice() {
-        return discountJudgeWeekdayOrWeekend();
+        int total = 0;
+
+        if(isGiveawayEvent()) {
+            total += 샴페인.getPrice();
+        }
+
+        total += discountJudgeWeekdayOrWeekend() + discountChristmasDay();
+
+        if(isDiscountSpecialDay()) {
+            total += 1_000;
+        }
+
+        return total;
+    }
+
+    public int getDiscountAmount() {
+        int total = 0;
+
+        total += discountJudgeWeekdayOrWeekend() + discountChristmasDay();
+
+        if(isDiscountSpecialDay()) {
+            total += 1_000;
+        }
+
+        return total;
     }
 
 }
