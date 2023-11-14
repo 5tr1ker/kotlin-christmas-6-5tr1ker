@@ -8,6 +8,7 @@ public class Judgment {
         Reservation reservation = new Reservation();
 
         reservation.inputVisitDate();
+        reservation.inputOrderMenu();
 
         return null;
     }
