@@ -1,26 +1,32 @@
 package christmas.util;
 
 public enum Menu {
-    양송이_수프(6_000) ,
-    타파즈(8_000),
-    시저샐러드(8_000),
-    티본스테이크(55_000),
-    바비큐립(54_000),
-    해산물파스타(35_000),
-    크리스마스파스타(25_000),
-    초코케이크(15_000),
-    아이스크림(5_000),
-    제로콜라(3_000),
-    레드와인(60_000),
-    샴페인(25_000);
+    양송이_수프("APPETIZER" , 6_000) ,
+    타파즈("APPETIZER" , 8_000),
+    시저샐러드("APPETIZER" , 8_000),
+    티본스테이크("MAIN" , 55_000),
+    바비큐립("MAIN" , 54_000),
+    해산물파스타("MAIN" , 35_000),
+    크리스마스파스타("MAIN" , 25_000),
+    초코케이크("DESSERT" , 15_000),
+    아이스크림("DESSERT" , 5_000),
+    제로콜라("DRINK" , 3_000),
+    레드와인("DRINK" , 60_000),
+    샴페인("DRINK" , 25_000);
 
+    private String type;
     private int price;
 
-    Menu(int price) {
+    Menu(String type , int price) {
+        this.type = type;
         this.price = price;
     }
 
     public int getPrice() {
         return price;
+    }
+
+    public String getType() {
+        return type;
     }
 }

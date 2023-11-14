@@ -2,12 +2,12 @@ package christmas.domain;
 
 import christmas.util.Menu;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static christmas.util.ErrorMessage.INVALID_DATE;
 import static christmas.util.ErrorMessage.INVALID_ORDER;
+import static christmas.util.OutputMessage.ORDER_MENU;
 import static christmas.util.OutputMessage.SHOW_MENU;
 import static christmas.view.InputView.readMenu;
 import static christmas.view.InputView.readVisitDate;
@@ -90,9 +90,49 @@ public class Reservation {
     }
 
     public void printMenu() {
+        System.out.println(ORDER_MENU);
+
         for (Menu menu : orderMenu.keySet()) {
             System.out.printf(SHOW_MENU.getMessage(), menu, orderMenu.get(menu));
         }
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        for (Menu menu : orderMenu.keySet()) {
+            totalPrice += menu.getPrice() * orderMenu.get(menu);
+        }
+
+        return totalPrice;
+    }
+
+    public int getInviteDate() {
+        return inviteDate;
+    }
+
+    public int countMainMenu() {
+        int count = 0;
+
+        for(Menu menu : orderMenu.keySet()) {
+            if(menu.getType().equals("MAIN")) {
+                count += orderMenu.get(menu);
+            }
+        }
+
+        return count;
+    }
+
+    public int countDessertMenu() {
+        int count = 0;
+
+        for(Menu menu : orderMenu.keySet()) {
+            if(menu.getType().equals("DESSERT")) {
+                count += orderMenu.get(menu);
+            }
+        }
+
+        return count;
     }
 
 }
