@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.util.Menu;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +18,16 @@ public class Reservation {
     private Map<Menu, Integer> orderMenu = new HashMap<>();
 
     public void inputVisitDate() {
-        int date = convertToInt(readVisitDate());
-        checkIsValidDate(date);
+        try {
+            int date = convertToInt(readVisitDate(), INVALID_DATE.getMessage());
+            checkIsValidDate(date);
 
-        this.inviteDate = date;
+            this.inviteDate = date;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
 
+            inputVisitDate();
+        }
     }
 
     private void checkIsValidDate(int date) {
@@ -31,7 +37,7 @@ public class Reservation {
     }
 
     private void addOrderMenu(String menuName, int amount) {
-        if (orderMenu.containsKey(menuName)) {
+        if (orderMenu.containsKey(MenuFinder.findMenu(menuName))) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
 
@@ -40,18 +46,32 @@ public class Reservation {
     }
 
     public void inputOrderMenu() {
-        String orderMenus[] = readMenu().split(",");
+        try {
+            String orderMenus[] = readMenu().split(",");
 
-        for (String orderMenu : orderMenus) {
-            processOrderMenu(orderMenu.split("-"));
+            for (String orderMenu : orderMenus) {
+                processOrderMenu(orderMenu.split("-"));
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+
+            inputOrderMenu();
         }
     }
 
     private void processOrderMenu(String[] menu) {
         isValidMenuData(menu);
-        int amount = convertToInt(menu[1]);
+        int amount = convertToInt(menu[1], INVALID_ORDER.getMessage());
+
+        isValidAmount(amount);
 
         addOrderMenu(menu[0], amount);
+    }
+
+    private void isValidAmount(int amount) {
+        if(amount > 20 || amount < 1) {
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+        }
     }
 
     private void isValidMenuData(String menuData[]) {
@@ -60,12 +80,12 @@ public class Reservation {
         }
     }
 
-    private int convertToInt(String string) {
+    private int convertToInt(String string, String errorMessage) {
         try {
             return Integer.parseInt(string);
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_DATE.getMessage());
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 

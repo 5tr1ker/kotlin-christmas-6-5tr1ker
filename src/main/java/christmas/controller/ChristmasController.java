@@ -7,7 +7,7 @@ import static christmas.view.OutputView.welcomeMessage;
 
 public class ChristmasController {
 
-    Judgment judgment = new Judgment();
+    private Judgment judgment = new Judgment();
 
     public void run() {
         welcomeMessage();

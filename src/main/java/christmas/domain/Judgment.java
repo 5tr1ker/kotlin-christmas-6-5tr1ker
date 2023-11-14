@@ -10,7 +10,7 @@ public class Judgment {
         reservation.inputVisitDate();
         reservation.inputOrderMenu();
 
-        return null;
+        return reservation;
     }
 
 }

@@ -2,7 +2,6 @@ package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import static christmas.util.ErrorMessage.INVALID_DATE;
 import static christmas.util.OutputMessage.ASK_ORDER_MENU;
 import static christmas.util.OutputMessage.ASK_VISIT_DATE;
 

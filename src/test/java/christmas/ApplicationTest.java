@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
@@ -41,10 +43,20 @@ class ApplicationTest extends NsTest {
         });
     }
 
-    @Test
-    void 주문_예외_테스트() {
+    @ValueSource(strings = {"0" , "32" , "341"})
+    @ParameterizedTest
+    void 날짜_예외_테스트_범위를_벗어나는_값_입력(String date) {
         assertSimpleTest(() -> {
-            runException("3", "제로콜라-a");
+            runException(date);
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @ValueSource(strings = {"코카콜라-a" , "제로콜라-1,제로콜라-4" , "제로콜라-4124" , "샴페인" , "코카콜라주세요" , "1313" , "타파스" , "-4,5" , "제로콜라-0" , "제로콜라--3" , "제로콜라---10"})
+    @ParameterizedTest
+    void 주문_예외_테스트(String menu) {
+        assertSimpleTest(() -> {
+            runException("3", menu);
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
