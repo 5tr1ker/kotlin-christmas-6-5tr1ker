@@ -1,7 +1,11 @@
-package christmas.view;
+package christmas.view.output;
+
+import christmas.domain.EventVerifier;
+import christmas.util.Menu;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Map;
 
 import static christmas.util.OutputMessage.*;
 
@@ -22,6 +26,16 @@ public class OutputView {
         System.out.println(BEFORE_SALE_TOTAL_PRICE);
 
         printAmountOfMoney(price);
+    }
+
+
+
+    public static void printMenu(Map<Menu, Integer> orderMenu) {
+        System.out.println(ORDER_MENU);
+
+        for (Menu menu : orderMenu.keySet()) {
+            System.out.printf(SHOW_MENU.getMessage(), menu, orderMenu.get(menu));
+        }
     }
 
 }

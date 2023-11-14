@@ -7,10 +7,8 @@ import java.util.Map;
 
 import static christmas.util.ErrorMessage.INVALID_DATE;
 import static christmas.util.ErrorMessage.INVALID_ORDER;
-import static christmas.util.OutputMessage.ORDER_MENU;
-import static christmas.util.OutputMessage.SHOW_MENU;
-import static christmas.view.InputView.readMenu;
-import static christmas.view.InputView.readVisitDate;
+import static christmas.view.input.InputView.readMenu;
+import static christmas.view.input.InputView.readVisitDate;
 
 public class Reservation {
 
@@ -89,13 +87,7 @@ public class Reservation {
         }
     }
 
-    public void printMenu() {
-        System.out.println(ORDER_MENU);
 
-        for (Menu menu : orderMenu.keySet()) {
-            System.out.printf(SHOW_MENU.getMessage(), menu, orderMenu.get(menu));
-        }
-    }
 
     public int getTotalPrice() {
         int totalPrice = 0;
@@ -109,6 +101,10 @@ public class Reservation {
 
     public int getInviteDate() {
         return inviteDate;
+    }
+
+    public Map getOrderMenu() {
+        return orderMenu;
     }
 
     public int countMainMenu() {

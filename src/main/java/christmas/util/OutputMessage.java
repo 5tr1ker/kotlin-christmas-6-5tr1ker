@@ -15,6 +15,8 @@ public enum OutputMessage {
     BENEFIT_DETAIL("\n<혜택 내역>") ,
     BENEFIT_PRICE("\n<총혜택 금액>") ,
     EVENT_BADGE("\n<12월 이벤트 배지>"),
+    SPECIAL_EVENT("특별 할인: -1,000원"),
+    GIVEAWAY_EVENT("증정 이벤트: -25,000원"),
 
     NONE("없음"),
     SHOW_MENU("%s %d개\n"),

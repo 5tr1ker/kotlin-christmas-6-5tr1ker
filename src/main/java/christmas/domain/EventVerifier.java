@@ -8,18 +8,24 @@ public class EventVerifier {
         this.reservation = reservation;
     }
 
-    public void calculateBenefit() {
-
+    public int getInviteDate() {
+        return reservation.getInviteDate();
     }
 
-    private int discountChristmasDay() {
+    public int discountChristmasDay() {
         int inviteDate = reservation.getInviteDate();
 
         return 1000 + (inviteDate - 1) * 100;
     }
 
-    private int discountJudgeWeekdayOrWeekend(int inviteDate) {
-        if((inviteDate - 2) % 7 == 0 || (inviteDate - 1) % 7 == 0) { // 주말
+    public boolean isWeekdayOrWeekend() {
+        int inviteDate = getInviteDate();
+
+        return (inviteDate - 2) % 7 == 0 || (inviteDate - 1) % 7 == 0;
+    }
+
+    public int discountJudgeWeekdayOrWeekend() {
+        if(isWeekdayOrWeekend()) { // 주말
             return discountWeekend();
         }
 
@@ -34,7 +40,9 @@ public class EventVerifier {
         return reservation.countMainMenu() * 2023;
     }
 
-    private boolean isDiscountSpecialDay(int inviteDate) {
+    public boolean isDiscountSpecialDay() {
+        int inviteDate = getInviteDate();
+
         if((inviteDate - 3) % 7 == 0 || inviteDate == 25) {
             return true;
         }
@@ -42,16 +50,16 @@ public class EventVerifier {
         return false;
     }
 
-    private boolean isGiveawayEvent(int inviteDate) {
-        if(inviteDate >= 120_000) {
+    public boolean isGiveawayEvent() {
+        if(reservation.getTotalPrice() >= 120_000) {
             return true;
         }
 
         return false;
     }
 
-    private void totalBenefitAmount() {
-
+    public int totalBenefitPrice() {
+        return discountJudgeWeekdayOrWeekend();
     }
 
 }
