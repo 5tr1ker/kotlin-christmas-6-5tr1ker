@@ -26,8 +26,8 @@ public class EventOutputView {
     }
 
     public static void printBenefitDetail(EventVerifier eventVerifier) {
-        System.out.printf(BENEFIT_DETAIL + "\n크리스마스 디데이 할인: ");
-        printMoneyIfNotZero(eventVerifier.discountChristmasDay());
+        System.out.println(BENEFIT_DETAIL);
+        printChristmasDay(eventVerifier);
 
         printWeekendEventOrWeekdayEvent(eventVerifier);
 
@@ -40,6 +40,14 @@ public class EventOutputView {
         }
     }
 
+    private static void printChristmasDay(EventVerifier eventVerifier) {
+        if(eventVerifier.getInviteDate() <= 25) {
+            System.out.println("크리스마스 디데이 할인: ");
+
+            printMoneyIfNotZero(eventVerifier.discountChristmasDay());
+        }
+    }
+
     private static void printMoneyIfNotZero(int money) {
         if(money != 0) {
             printAmountOfMoney(money);
@@ -48,20 +56,29 @@ public class EventOutputView {
 
     public static void printWeekendEventOrWeekdayEvent(EventVerifier eventVerifier) {
         if(eventVerifier.isWeekdayOrWeekend()) {
-            System.out.printf("주말 할인: -");
-            printMoneyIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend());
+            printIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend() , "주말 할인: -");
 
             return;
         }
 
-        System.out.printf("평일 할인: -");
-        printMoneyIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend());
+        printIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend() , "평일 할인: -");
+    }
+
+    private static void printIfNotZero(int amount , String message) {
+        if(amount > 0) {
+            System.out.printf(message);
+
+            printMoneyIfNotZero(amount);
+        }
     }
 
     public static void printTotalBenefitPrice(EventVerifier eventVerifier) {
         int price = eventVerifier.totalBenefitPrice();
 
-        System.out.printf(BENEFIT_PRICE + "\n-");
+        System.out.println(BENEFIT_PRICE);
+        if(price != 0) {
+            System.out.printf("-");
+        }
         printAmountOfMoney(price);
     }
 
@@ -91,7 +108,9 @@ public class EventOutputView {
         }
         if(price >= 5000) {
             System.out.println("별");
+            return;
         }
+        System.out.println(NONE);
     }
 
     public static void printNotDiscountEvent(int totalPrice) {
