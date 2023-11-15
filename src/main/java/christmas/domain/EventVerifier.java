@@ -17,6 +17,10 @@ public class EventVerifier {
     public int discountChristmasDay() {
         int inviteDate = reservation.getInviteDate();
 
+        if(inviteDate > 25) {
+            return 0;
+        }
+
         return 1000 + (inviteDate - 1) * 100;
     }
 

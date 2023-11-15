@@ -27,7 +27,7 @@ public class EventOutputView {
 
     public static void printBenefitDetail(EventVerifier eventVerifier) {
         System.out.printf(BENEFIT_DETAIL + "\n크리스마스 디데이 할인: ");
-        printAmountOfMoney(eventVerifier.discountChristmasDay());
+        printMoneyIfNotZero(eventVerifier.discountChristmasDay());
 
         printWeekendEventOrWeekdayEvent(eventVerifier);
 
@@ -40,16 +40,22 @@ public class EventOutputView {
         }
     }
 
+    private static void printMoneyIfNotZero(int money) {
+        if(money != 0) {
+            printAmountOfMoney(money);
+        }
+    }
+
     public static void printWeekendEventOrWeekdayEvent(EventVerifier eventVerifier) {
         if(eventVerifier.isWeekdayOrWeekend()) {
             System.out.printf("주말 할인: -");
-            printAmountOfMoney(eventVerifier.discountJudgeWeekdayOrWeekend());
+            printMoneyIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend());
 
             return;
         }
 
         System.out.printf("평일 할인: -");
-        printAmountOfMoney(eventVerifier.discountJudgeWeekdayOrWeekend());
+        printMoneyIfNotZero(eventVerifier.discountJudgeWeekdayOrWeekend());
     }
 
     public static void printTotalBenefitPrice(EventVerifier eventVerifier) {
