@@ -9,6 +9,9 @@ import static christmas.view.output.OutputView.formatAmount;
 import static christmas.view.output.OutputView.printAmountOfMoney;
 
 public class EventOutputView {
+
+    private static boolean benefitFlag = false;
+
     public static void eventPreviewMessage(int price) {
         System.out.printf(EVENT_PREVIEW.getMessage() , price);
     }
@@ -27,24 +30,41 @@ public class EventOutputView {
 
     public static void printBenefitDetail(EventVerifier eventVerifier) {
         System.out.println(BENEFIT_DETAIL);
+
         printChristmasDay(eventVerifier);
-
         printWeekendEventOrWeekdayEvent(eventVerifier);
+        printIsGiveawayEvent(eventVerifier);
+        printIsDiscountSpecialDay(eventVerifier);
 
+        if(!benefitFlag) {
+            System.out.println(NONE);
+        }
+    }
+
+    private static void printIsDiscountSpecialDay(EventVerifier eventVerifier) {
         if(eventVerifier.isDiscountSpecialDay()) {
             System.out.println(SPECIAL_EVENT);
-        }
 
+            benefitFlag = true;
+        }
+    }
+
+    private static void printIsGiveawayEvent(EventVerifier eventVerifier) {
         if(eventVerifier.isGiveawayEvent()) {
             System.out.println(GIVEAWAY_EVENT);
+
+            benefitFlag = true;
         }
+
     }
 
     private static void printChristmasDay(EventVerifier eventVerifier) {
         if(eventVerifier.getInviteDate() <= 25) {
-            System.out.println("크리스마스 디데이 할인: ");
+            System.out.printf("크리스마스 디데이 할인: ");
 
             printMoneyIfNotZero(eventVerifier.discountChristmasDay());
+
+            benefitFlag = true;
         }
     }
 
@@ -69,6 +89,8 @@ public class EventOutputView {
             System.out.printf(message);
 
             printMoneyIfNotZero(amount);
+
+            benefitFlag = true;
         }
     }
 
