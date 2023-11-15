@@ -44,17 +44,37 @@ public class Reservation {
     }
 
     public void inputOrderMenu() {
-        try {
+       try {
             String orderMenus[] = readMenu().split(",");
+
+            checkIsOnlyDrink(orderMenus.clone());
 
             for (String orderMenu : orderMenus) {
                 processOrderMenu(orderMenu.split("-"));
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-
+            orderMenu.clear();
             inputOrderMenu();
         }
+    }
+
+    private void checkIsOnlyDrink(String orderMenus[]) {
+        if(isOnlyDrink(orderMenus)) {
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+        }
+    }
+
+    private boolean isOnlyDrink(String orderMenus[]) {
+        for (String orderMenu : orderMenus) {
+            Menu menu = MenuFinder.findMenu(orderMenu.split("-")[0]);
+
+            if(!menu.getType().equals("DRINK")) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void processOrderMenu(String[] menu) {
@@ -80,8 +100,7 @@ public class Reservation {
 
     private int convertToInt(String string, String errorMessage) {
         try {
-            return Integer.parseInt(string);
-
+            return Integer.parseInt(string.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(errorMessage);
         }
