@@ -148,4 +148,12 @@ public class Reservation {
         return count;
     }
 
+    public Reservation(int inviteDate , Map orderMenu) {
+        this.inviteDate = inviteDate;
+        this.orderMenu = orderMenu;
+    }
+
+    public Reservation() {
+    }
+
 }
