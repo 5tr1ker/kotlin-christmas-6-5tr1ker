@@ -36,6 +36,30 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 증정_메뉴_출력() {
+        assertSimpleTest(() -> {
+            run("26", "초코케이크-19,레드와인-19");
+            assertThat(output()).contains("증정 이벤트: -25,000원");
+        });
+    }
+
+    @Test
+    void 음료만_주문시_오류_출력() {
+        assertSimpleTest(() -> {
+            runException("26", "제로콜라-19,레드와인-5,샴페인-15");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+    
+    @Test
+    void 주문갯수_25개이상() {
+        assertSimpleTest(() -> {
+            runException("26", "초코케이크-231");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
     void 날짜_예외_테스트() {
         assertSimpleTest(() -> {
             runException("a");
