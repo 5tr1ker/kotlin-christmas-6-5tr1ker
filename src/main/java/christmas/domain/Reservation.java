@@ -46,12 +46,12 @@ public class Reservation {
     public void inputOrderMenu() {
        try {
             String orderMenus[] = readMenu().split(",");
-
             checkIsOnlyDrink(orderMenus.clone());
 
             for (String orderMenu : orderMenus) {
                 processOrderMenu(orderMenu.split("-"));
             }
+           isValidAmount();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             orderMenu.clear();
@@ -81,13 +81,17 @@ public class Reservation {
         isValidMenuData(menu);
         int amount = convertToInt(menu[1], INVALID_ORDER.getMessage());
 
-        isValidAmount(amount);
-
         addOrderMenu(menu[0], amount);
     }
 
-    private void isValidAmount(int amount) {
-        if(amount > 20 || amount < 1) {
+    private void isValidAmount() {
+        int count = 0;
+
+        for(int menuCount : orderMenu.values()) {
+            count += menuCount;
+        }
+
+        if(count > 20) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }

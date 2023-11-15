@@ -38,7 +38,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 증정_메뉴_출력() {
         assertSimpleTest(() -> {
-            run("26", "초코케이크-19,레드와인-19");
+            run("26", "초코케이크-19,레드와인-1");
             assertThat(output()).contains("증정 이벤트: -25,000원");
         });
     }
@@ -50,11 +50,12 @@ class ApplicationTest extends NsTest {
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
-    
-    @Test
-    void 주문갯수_25개이상() {
+
+    @ValueSource(strings = {"코카콜라-21" , "제로콜라-15,제로콜라-13" , "제로콜라-501" , "양송이수프-3,타파스-3,시저샐러드-3,티본스테이크-3,바비큐립-3,해산물파스타-3,크리스마스파스타-3"})
+    @ParameterizedTest
+    void 주문갯수_20개이상_예외(String menu) {
         assertSimpleTest(() -> {
-            runException("26", "초코케이크-231");
+            runException("26", menu);
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
@@ -70,6 +71,15 @@ class ApplicationTest extends NsTest {
     @ValueSource(strings = {"0" , "32" , "341"})
     @ParameterizedTest
     void 날짜_예외_테스트_범위를_벗어나는_값_입력(String date) {
+        assertSimpleTest(() -> {
+            runException(date);
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @ValueSource(strings = {"a" , "2ba" , " c d" , "[ ][ ]["})
+    @ParameterizedTest
+    void 날짜_예외_테스트_문자열_값_입력(String date) {
         assertSimpleTest(() -> {
             runException(date);
             assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
